@@ -20,3 +20,10 @@ pip install "zenml["server"]"
 ```
 zenml init
 ```
+
+
+### To initialize a zenml project
+
+```
+zenml to run and acces the dashboard
+```
