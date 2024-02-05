@@ -1,6 +1,6 @@
 import logging  
 import pandas as pd 
-import zenml as step
+from zenml import step
 
 
 class IngestData:
@@ -20,7 +20,7 @@ class IngestData:
     
 
 @step
-def ingest_data(data_path: str) -> pd.DataFrame:
+def ingest_df(data_path: str) -> pd.DataFrame:
 
     """
     Ingest data from the data_path
@@ -38,3 +38,4 @@ def ingest_data(data_path: str) -> pd.DataFrame:
         logging.error(f"Error reading data from {data_path}: {error}")
         raise error
     
+
