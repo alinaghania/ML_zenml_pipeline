@@ -1,8 +1,8 @@
 # **ML PIPELINE**
 
-### Create an environement 
+##### Create an environement 
 
-bash
+
 ```
 pyenv virtualenv 3.8.12 pipeline
 ```
@@ -15,13 +15,20 @@ pyenv activate pipeline
 pip install "zenml["server"]"
 ```
 
-### To initialize a zenml project
+##### To initialize a zenml project
 
 ```
 zenml init
 ```
 
-## Dashboard
+### To execute the pipeline 
+
+```
+python run_pipeline.py
+
+```
+
+#### Dashboard
 ```
 zenml up
 ```
