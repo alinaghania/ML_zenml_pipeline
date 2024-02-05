@@ -21,9 +21,7 @@ pip install "zenml["server"]"
 zenml init
 ```
 
-
-### To initialize a zenml project
-
+## Dashboard
 ```
-zenml to run and acces the dashboard
+zenml up
 ```
