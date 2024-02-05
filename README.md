@@ -23,7 +23,7 @@ pip install "zenml["server"]"
 zenml init
 ```
 
-##### 4) To execute the pipeline 
+##### 4) To execute the pipeline (if it doesn't work run zenml disconnect)
 
 ```
 python run_pipeline.py

@@ -6,7 +6,7 @@ from steps.evaluation import evaluate_model
 
 
 
-@pipeline
+@pipeline(enable_cache=True)
 def train_pipeline(data_path: str):
     """
     Training pipeline for the model
