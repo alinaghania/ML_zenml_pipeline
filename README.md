@@ -1,4 +1,4 @@
-# ML PIPELINE 
+# **ML PIPELINE**
 
 Create an environement 
 
@@ -17,7 +17,7 @@ bash
 pip install "zenml["server"]"
 ```
 
-# To initialize a zenml project
+### To initialize a zenml project
 bash
 ```
 zenml init
