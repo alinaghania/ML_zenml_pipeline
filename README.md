@@ -2,10 +2,12 @@
 
 Create an environement 
 
-bash```
+bash
+```
 pyenv virtualenv 3.8.12 pipeline
 ```
 
-bash```
+bash
+```
 pyenv activate pipeline
 ```
