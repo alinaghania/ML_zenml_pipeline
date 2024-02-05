@@ -11,6 +11,8 @@ pyenv virtualenv 3.8.12 pipeline
 pyenv activate pipeline
 ```
 
+##### Install zenml library 
+
 ```
 pip install "zenml["server"]"
 ```
@@ -21,14 +23,14 @@ pip install "zenml["server"]"
 zenml init
 ```
 
-### To execute the pipeline 
+##### To execute the pipeline 
 
 ```
 python run_pipeline.py
 
 ```
 
-#### Dashboard
+##### Dashboard
 ```
 zenml up
 ```
