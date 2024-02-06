@@ -1,7 +1,6 @@
 import logging
 from abc import ABC, abstractmethod 
-from typing import Union
-import numpy as np 
+from typing import Union, Tuple
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder 
 from sklearn.model_selection import train_test_split
@@ -12,14 +11,14 @@ class DataStrategy(ABC):
     Abstract class for handling data
     """
     @abstractmethod
-    def handle_data(self, data: pd.DataFrame) -> Union[pd.DataFrame, pd.Series]:
+    def handle_data(self, data: pd.DataFrame) -> Union[pd.DataFrame, pd.Series, Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series], None]:
         pass
 
 class DataPreProcessStrategy(DataStrategy):
     """
     Class for cleaning data
     """
-    def handle_data(self, data: pd.DataFrame) -> pd.DataFrame:
+    def handle_data(self, data: pd.DataFrame) -> Union[pd.DataFrame, None]:
         """
         Preprocess data
         """
@@ -42,25 +41,24 @@ class DataPreProcessStrategy(DataStrategy):
             return data
         except Exception as e:
             logging.error(f"Error in cleaning data: {e}")
-            raise e
+            return None
         
 class DataDivideStrategy(DataStrategy):
     """
     Split the data into train and test sets
     """
-    def handle_data(self, data: pd.DataFrame) -> Union[tuple, None]:
+    def handle_data(self, data: pd.DataFrame) -> Union[Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series], None]:
         """
         Split the data into training and test sets and return them.
         """
         try:
             y = data['charges']  # Target column
-            X = data[['smoker', 'age', 'bmi']]  # Features
+            X = data.drop(['charges'], axis=1)  # Features, assuming 'charges' is the only target
             X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
             return X_train, X_test, y_train, y_test
         except Exception as e:
             logging.error(f"Error in splitting data: {e}")
-            raise e
-
+            return None
 
 class DataCleaning:
     """
@@ -70,7 +68,7 @@ class DataCleaning:
         self.data = data
         self.strategy = strategy
 
-    def handle_data(self) -> Union[pd.DataFrame, pd.Series]:
+    def handle_data(self) -> Union[pd.DataFrame, pd.Series, Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series], None]:
         """
         Clean the data
         """
@@ -78,5 +76,4 @@ class DataCleaning:
             return self.strategy.handle_data(self.data)
         except Exception as e:  
             logging.error(f"Error in cleaning data: {e}")
-            raise e
-        
+            return None
