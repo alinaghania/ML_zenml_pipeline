@@ -1,0 +1,21 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build and Push Docker image
+      run: |
+        docker build -t martinleformal/ml-in-prod-project:latest .
+        docker push martinleformal/ml-in-prod-project:latest
+    - name: Deploy to Production Environment
+      run: |
+        docker pull martinleformal/ml-in-prod-project:latest
+        docker run -d -p 8080:80 --name ml-in-prod-project martinleformal/ml-in-prod-project:latest

@@ -1,0 +1,24 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build and Push Docker image
+      run: |
+        # Add commands to build and push your Docker image to a registry
+        # For example, using Docker Hub
+        docker build -t martinleformal/ml-in-prod-project:staging .
+        docker push martinleformal/ml-in-prod-project:staging
+    - name: Deploy to Staging Environment
+      run: |
+        docker pull martinleformal/ml-in-prod-project:staging
+        docker run -d -p 8080:80 --name ml-in-prod-project martinleformal/ml-in-prod-project:staging
+
