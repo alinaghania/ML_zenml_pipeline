@@ -11,7 +11,7 @@ class DataStrategy(ABC):
     Abstract class for handling data
     """
     @abstractmethod
-    def handle_data(self, data: pd.DataFrame) -> Union[pd.DataFrame, pd.Series]:
+    def handle_data(self, data: pd.DataFrame) -> pd.DataFrame:
         pass
 
 class DataPreProcessStrategy(DataStrategy):
@@ -44,7 +44,7 @@ class DataDivideStrategy(DataStrategy):
     """
     Split the data into train and test sets
     """
-    def handle_data(self, data: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
+    def handle_data(self, data: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series[float], pd.Series[float]]:
         """
         Split the data into training and test sets and return them.
         """
@@ -66,7 +66,7 @@ class DataCleaning:
         self.data = data
         self.strategy = strategy
 
-    def handle_data(self) -> Union[pd.DataFrame, pd.Series]:
+    def handle_data(self) -> Union[pd.DataFrame, tuple[pd.DataFrame, pd.DataFrame, pd.Series[float], pd.Series[float]]]:
         """
         Clean the data
         """

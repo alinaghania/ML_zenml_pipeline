@@ -2,12 +2,11 @@ import logging
 import pandas as pd
 from zenml import step
 from typing_extensions import Annotated
-from types import Tuple
 
 from src.data_cleaning import DataCleaning, DataDivideStrategy , DataPreProcessStrategy
 
 @step
-def clean_df(df: pd.DataFrame) -> Tuple[
+def clean_df(df: pd.DataFrame) -> tuple[
     Annotated[pd.DataFrame, 'X_train'],
     Annotated[pd.DataFrame, 'X_test'],
     Annotated[pd.Series, 'y_train'],
@@ -27,16 +26,21 @@ def clean_df(df: pd.DataFrame) -> Tuple[
     """
 
     try:
-        process_strategy = DataPreProcessStrategy()
-        data_cleaning = DataCleaning(df, process_strategy)
+        processed_data = DataCleaning(df, DataPreProcessStrategy()).handle_data()
 
-        processed_data = data_cleaning.handle_data()
-        divide_strategy = DataDivideStrategy()
+        # Ensure the result is of the expected type
+        if isinstance(processed_data, tuple):
+            processed_data = processed_data[0]
+        
+        result = DataCleaning(processed_data, DataDivideStrategy()).handle_data()
 
-        data_cleaning = DataCleaning(processed_data, divide_strategy)
-
-        X_train, X_test, y_train, y_test = data_cleaning.handle_data()
-        logging.info(f"Data cleaning and splitting done successfully")
+        # Ensure the result is of the expected type
+        if isinstance(result, tuple) and len(result) == 4:
+            X_train, X_test, y_train, y_test = result
+            logging.info("Data cleaning and splitting done successfully")
+            return X_train, X_test, y_train, y_test
+        else:
+            raise TypeError("Unexpected return type from data spliting.")
         
     except Exception as e:
         logging.error(f"Error in cleaning and splitting data: {e}")
