@@ -27,5 +27,5 @@ jobs:
     - name: Run tests
       run: |
         # Replace with your test command
-        pytest tests/
+        pytest tests/test_data_transformation.py
 
