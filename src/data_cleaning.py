@@ -44,7 +44,7 @@ class DataDivideStrategy(DataStrategy):
     """
     Split the data into train and test sets
     """
-    def handle_data(self, data: pd.DataFrame) -> Union[tuple, None]:
+    def handle_data(self, data: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
         """
         Split the data into training and test sets and return them.
         """
