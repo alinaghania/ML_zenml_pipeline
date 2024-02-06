@@ -3,7 +3,7 @@ import pandas as pd
 from zenml import step 
 
 @step
-def train_model(df: pd.DataFrame)-> pd.DataFrame:
+def train_model(df: pd.DataFrame)-> None:
     """
     Trains the model on the cleaned data
 
