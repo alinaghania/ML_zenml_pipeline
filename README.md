@@ -34,3 +34,5 @@ python run_pipeline.py
 ```
 zenml up
 ```
+
+#### To Update the Data you juste have to change the path on the file "run_pipeline.py"
