@@ -15,7 +15,7 @@ class DataStrategy(ABC):
     def handle_data(self, data: pd.DataFrame) -> Union[pd.DataFrame, pd.Series]:
         pass
 
-class CleanData(DataStrategy):
+class DataPreProcessStrategy(DataStrategy):
     """
     Class for cleaning data
     """
@@ -44,7 +44,7 @@ class CleanData(DataStrategy):
             logging.error(f"Error in cleaning data: {e}")
             raise e
         
-class SplitData(DataStrategy):
+class DataDivideStrategy(DataStrategy):
     """
     Split the data into train and test sets
     """
@@ -60,3 +60,23 @@ class SplitData(DataStrategy):
         except Exception as e:
             logging.error(f"Error in splitting data: {e}")
             raise e
+
+
+class DataCleaning:
+    """
+    Class to clean and split the data
+    """
+    def __init__(self, data: pd.DataFrame, strategy: DataStrategy):
+        self.data = data
+        self.strategy = strategy
+
+    def handle_data(self) -> Union[pd.DataFrame, pd.Series]:
+        """
+        Clean the data
+        """
+        try:
+            return self.strategy.handle_data(self.data)
+        except Exception as e:  
+            logging.error(f"Error in cleaning data: {e}")
+            raise e
+        
