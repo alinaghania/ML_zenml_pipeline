@@ -1,7 +1,6 @@
 import logging
 from abc import ABC, abstractmethod 
-from typing import Union
-import numpy as np 
+from typing import Union 
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder 
 from sklearn.model_selection import train_test_split
@@ -30,12 +29,9 @@ class DataPreProcessStrategy(DataStrategy):
             data['sex'] = encoder.fit_transform(data['sex'])
             data['smoker'] = encoder.fit_transform(data['smoker'])
             
-            # One hot encoding for 'region' column
-            data = pd.get_dummies(data, columns=['region'], prefix='region')
-
             # Dropping less correlated columns based on the correlation matrix
             data = data.drop(
-                ['region_southeast', 'region_southwest', 'region_northeast', 'region_northwest', 'children', 'sex'],
+                ['region', 'children', 'sex'],
                 axis=1
             )
 
