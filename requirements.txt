@@ -1,4 +1,4 @@
 pandas 
 zenml
 pytest
-sklearn
+scikit-learn
