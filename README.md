@@ -1,8 +1,8 @@
-# ML Pipeline
+# ML Pipeline Project
 
 ## Introduction
 
-This project provides a streamlined machine learning pipeline utilizing ZenML, an MLOps framework designed to simplify and manage ML workflows. It includes features for environment setup, library installation, project initialization, pipeline execution, dashboard visualization, data updating, and automated data monitoring.
+This project utilizes ZenML for creating a streamlined Machine Learning (ML) pipeline, incorporating features such as environment setup, library installation, project initialization, pipeline execution, dashboard visualization, data updating, and automated data monitoring. It aims to simplify ML workflows, ensuring efficient data integration and management.
 
 ## Table of Contents
 
@@ -19,70 +19,75 @@ This project provides a streamlined machine learning pipeline utilizing ZenML, a
 
 ## Environment Setup
 
-To create a virtual environment for the project, use the following commands:
-
 ```bash
+# Create a virtual environment
 pyenv virtualenv 3.8.12 pipeline
+
+# Activate the virtual environment
 pyenv activate pipeline
+````
 
-pyenv activate pipeline
-```
 
-##### Install zenml library 
-
-```
-pip install "zenml["server"]"
-```
-
-##### To initialize a zenml project
+## Installation
 
 ```
-zenml init
+# Install ZenML and its server extension
+pip install "zenml[server]"
 ```
 
-##### To execute the pipeline (if it doesn't work run zenml disconnect)
+## Project Initialization
+
+
+```
+
+zenml init 
+```
+
+## Executing the Pipeline
+
 
 ```
 python run_pipeline.py
 
-```
-
-##### Dashboard
-```
-zenml up
-```
-
-#### To Update the Data you juste have to change the path on the file "run_pipeline.py"
-
-#### In case of any issues, you might want to disconnect ZenML and retry:
-
-```
+# If the above fails, disconnect ZenML and retry
 zenml disconnect
 python run_pipeline.py
 ```
 
+## Dashboard
+
+```
+# Access the ZenML dashboard
+zenml up
+```
 
 ## Updating Data
-
-To ensure your ML pipeline processes the latest data, update the data source path in the `run_pipeline.py` script. Modify the file to point to the new data location, enabling the pipeline to access and process the updated dataset.
+To update the data for your pipeline, simply change the path in the run_pipeline.py file to the new data location.
 
 ## Automated Data Monitoring
+This feature uses watch_data_folder.py for real-time data monitoring. It automatically triggers pipeline execution upon detecting new data in the specified directory.
 
-The project is equipped with an automated data monitoring system, implemented through the `watch_data_folder.py` script. This system is designed to watch for new data in a predefined directory, automatically initiating the pipeline execution upon detecting new files.
+##Setting Up the Monitoring Script
+Ensure watch_dat a_folder.py is configured with your data directory's path.
 
-### Setting Up the Monitoring Script
 
-Before activating the monitoring script, confirm that `watch_data_folder.py` is correctly configured with the path to your designated data directory. This setup is crucial for ensuring the script accurately monitors the correct location for new data inputs.
+## Executing the Monitoring Script
 
-### Executing the Monitoring Script
-
-To run the monitoring script in the background, allowing it to continuously monitor for new data even when the terminal is closed, use the following command:
-
-```bash
+```
+# Run the script in the background to continuously monitor for new data
 nohup python watch_data_folder.py &
 
 ```
 
-## How It Works ? :
+## Troubleshooting
+If you encounter any issues:
 
-The script uses watchdog to monitor changes in the data directory. When a new file is detected, it executes run_pipeline.py with the path of the new data file as an argument, thereby triggering the pipeline.
+## Ensure your virtual environment is activated and correctly set up.
+Confirm the ZenML library and its dependencies are correctly installed.
+Use zenml disconnect followed by python run_pipeline.py if pipeline execution fails.
+Dependencies
+Python 3.8.12
+ZenML
+Watchdog (for automated data monitoring)
+
+Thank you :) 
