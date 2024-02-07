@@ -1,2 +1,6 @@
 pandas 
 zenml==0.3.1
+pickle
+matplotlib
+seaborn
+```

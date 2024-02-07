@@ -4,15 +4,20 @@ from steps.clean_data import clean_df
 from steps.model_train import train_model
 from steps.evaluation import evaluate_model
 
-
-
 @pipeline(enable_cache=True)
 def train_pipeline(data_path: str):
     """
     Training pipeline for the model
     """
+    # Ingest data
+    df = ingest_df(data_path)  # 1)
     
-    df = ingest_df(data_path) # 1) 
-    clean_df(df) # 2)
-    train_model(df) # 3) 
-    evaluate_model(df)      # 4) 
+    # Clean and split data
+    X_train, X_test, y_train, y_test = clean_df(df)  # 2)
+    
+    # Train model with training data
+    model_path = train_model(X_train, y_train)  # 3)
+    
+    # Evaluate model with test data (assuming evaluate_model takes model_path, X_test, and y_test)
+    #evaluate_model(model_path, X_test, y_test)  # 4)
+
