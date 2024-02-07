@@ -18,6 +18,6 @@ def train_pipeline(data_path: str):
     # Train model with training data
     model_path = train_model(X_train, y_train)  # 3)
     
-    # Evaluate model with test data (assuming evaluate_model takes model_path, X_test, and y_test)
-    #evaluate_model(model_path, X_test, y_test)  # 4)
+    # Evaluate the model with test data
+    metrics = evaluate_model(model_path, X_test, y_test)  # 4)
 
