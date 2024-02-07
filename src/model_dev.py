@@ -16,3 +16,9 @@ class ModelDevelopment:
         with open(model_path, 'wb') as f:
             pickle.dump(self.model, f)
         return model_path
+    
+    def load_model(self, model_path):
+        # Méthode pour charger un modèle préalablement entraîné
+        with open(model_path, 'rb') as f:
+            model = pickle.load(f)
+        return model

@@ -2,6 +2,7 @@ import logging
 from zenml import step
 from src.model_dev import ModelDevelopment  
 import pandas as pd
+import os
 
 @step
 def train_model(
@@ -21,12 +22,17 @@ def train_model(
     try:
         # Initialize and train the model
         model_dev = ModelDevelopment()
-        model_dev.train(X_train, y_train)
+    
+        # Vérifie si un modèle est déjà enregistré
+        model_path = 'saved_model/trained_model.pkl'
+
+        if os.path.exists(model_path):
+            model = model_dev.load_model(model_path)  
+        else:
+            # Si aucun modèle n'est enregistré, entraînez-en un nouveau
+            model = model_dev.train(X_train, y_train)
+            model_dev.save_model(model_path)
         
-        # Save the model
-        model_path = model_dev.save_model('saved_model')  
-        
-        logging.info(f"Model trained and saved at {model_path}")
         return model_path
     except Exception as e:
         logging.error(f"Error in training model: {e}")
