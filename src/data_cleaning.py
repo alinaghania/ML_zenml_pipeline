@@ -1,6 +1,6 @@
 import logging
 from abc import ABC, abstractmethod 
-from typing import Union 
+from typing import Union, Tuple
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder 
 from sklearn.model_selection import train_test_split
@@ -11,7 +11,7 @@ class DataStrategy(ABC):
     Abstract class for handling data
     """
     @abstractmethod
-    def handle_data(self, data: pd.DataFrame) -> Union[pd.DataFrame, pd.Series]:
+    def handle_data(self, data: pd.DataFrame) -> pd.DataFrame:
         pass
 
 class DataPreProcessStrategy(DataStrategy):
@@ -44,7 +44,7 @@ class DataDivideStrategy(DataStrategy):
     """
     Split the data into train and test sets
     """
-    def handle_data(self, data: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
+    def handle_data(self, data: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
         """
         Split the data into training and test sets and return them.
         """
@@ -66,7 +66,7 @@ class DataCleaning:
         self.data = data
         self.strategy = strategy
 
-    def handle_data(self) -> Union[pd.DataFrame, pd.Series]:
+    def handle_data(self) -> Union[pd.DataFrame, Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]]:
         """
         Clean the data
         """
